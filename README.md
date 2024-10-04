@@ -107,7 +107,8 @@ module traffic_light_controller_tb;
     );
 
     // Clock generation
-    always #5 clk = ~clk;  // Toggle clock every 5 ns
+    always begin
+    #5 clk = ~clk;  // Toggle clock every 5 ns
 
     // Test procedure
     initial begin
@@ -116,15 +117,18 @@ module traffic_light_controller_tb;
         reset = 1;
 
         // Release reset after some time
-        #10 reset = 0;
+        #20;
+        reset = 0;
 
         // Run simulation for 100 ns to observe light transitions
-        #100 $stop;
+        #1000
+        $finish;
     end
 
     // Monitor outputs
     initial begin
-        $monitor("Time=%0t | Lights (R Y G) = %b", $time, lights);
+        $display("Time\tReset\tLights");
+        $monitor("%d\t%b\t%b", $time,reset,lights);
     end
 
 endmodule
