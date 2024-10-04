@@ -97,11 +97,9 @@ Testbench for Traffic Light Controller
 
 module traffic_light_controller_tb;
 
-// Inputs to the module (reg type in testbench)
 reg clk;
 reg reset;
 
-// Outputs from the module (wire type in testbench)
 wire [2:0] lights;
 
 traffic_light_controller uut (
@@ -115,9 +113,8 @@ always begin
 end
 
 initial begin
-    // Initialize inputs
     clk = 0;
-    reset = 1;  // Start with reset active
+    reset = 1;  
     
     #20;
     reset = 0;  
@@ -128,7 +125,6 @@ initial begin
 end
 
 initial begin
-    // Print header
     $display("Time\tReset\tLights");
     $monitor("%d\t%b\t%b", $time, reset, lights);
 end
